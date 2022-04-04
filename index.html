@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        nsbp = "\u00a0"
+
+        // List of page.
+        const fragment = document.createDocumentFragment();
+        Object
+            .keys(CONTENT_META_DATA)
+            .map(key => CONTENT_META_DATA[key])
+            .sort((a, b) => (a.date < b.date) ? 1 : -1)
+            .forEach(function (page) {
+                const link_to_page = document.createElement("a");
+                link_to_page.appendChild(document.createTextNode(page.title));
+                link_to_page.href = page.path;
+
+                const li = document.createElement("li");
+                const date = document.createTextNode(page.date + nsbp);
+                li.appendChild(date);
+                li.appendChild(link_to_page);
+
+                page.tags.forEach(function (tag_name) {
+                    const elem_a = document.createElement("a");
+                    elem_a.appendChild(document.createTextNode(tag_name));
+                    elem_a.href = "./tag.html?tag=" + tag_name;
+
+                    const elem_tag = document.createElement("tag");
+                    elem_tag.appendChild(elem_a);
+
+                    li.appendChild(document.createTextNode(nsbp));
+                    li.appendChild(elem_tag);
+                });
+
+                fragment.appendChild(li);
+            });
+
+        document
+            .getElementById("contents-list")
+            .appendChild(fragment);
+
+        // List of tag.
+        const tag_set = new Set(
+            Object
+                .keys(CONTENT_META_DATA)
+                .map(key => CONTENT_META_DATA[key].tags)
+                .flat()
+        );
+
+        const fragment2 = document.createDocumentFragment();
+        tag_set.forEach(function (tag_name) {
+            const elem_a = document.createElement("a");
+            elem_a.appendChild(document.createTextNode(tag_name));
+            elem_a.href = "./tag.html?tag=" + tag_name;
+
+            const elem_tag = document.createElement("tag");
+            elem_tag.appendChild(elem_a);
+
+            fragment2.appendChild(elem_tag);
+            fragment2.appendChild(document.createTextNode(" "));
+        });
+        document
+            .getElementById("tags-list")
+            .appendChild(fragment2);
+    });
+</script>
+
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="data.js"></script>
+        <title>Note</title>
+    </head>
+
+    <style>#contents-list li {margin-bottom: 1ex;}</style>
+
+    <body>
+        <h1>Note</h1>
+        <p>日頃のメモを書き溜めるページです。</p>
+        <hr>
+        <br>
+
+        <h2>ページ一覧</h2>
+        <ul id = "contents-list">
+        </ul>
+        <br>
+
+        <h2>タグ一覧</h2>
+        <div style="overflow-wrap: keep-all;">
+            <p id = "tags-list"></p>
+        </div>
+    </body>
+</html>

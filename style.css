@@ -1,0 +1,92 @@
+body {
+    background-color: var(--c-first);
+    font-size: large;
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+h1, h2 {
+    color: var(--c-primary-text);
+}
+
+hr {
+    color: var(--c-divider-color);
+}
+
+pre, code {
+    /* font-weight: bold; */
+    font-family: 'Source Code Pro', monospace;
+}
+
+pre {
+    /* background-color: var(--c-second); */
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+    overflow-x: auto;
+}
+
+code {
+    color: var(--c-fourth);
+}
+
+figure .prettyprint {
+    margin-bottom: 4px;
+}
+
+figure figcaption {
+    text-align: center;
+}
+
+quiz {
+    color: transparent;
+    border-style: solid;
+    border-color: black;
+    margin-left: 0.5ch;
+    margin-right: 0.5ch;
+    padding-left: 0.5ch;
+    padding-right: 0.5ch;
+}
+
+tag {
+    background-color: var(--c-second);
+    border-width: thick;
+    border-color: #000000;
+    white-space: nowrap;
+}
+tag > a {
+    color: var(--c-fourth);
+    text-decoration: none;
+}
+
+ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+/*
+    Color scheme
+*/
+:root {
+    --c-first: #f9f9f9;
+    --c-second: #ded5c4;
+    --c-third: #ef7e56;
+    --c-fourth: #305973;
+    --c-primary-text: #212121;
+    --c-secondary-text: #757575;
+    --c-divider-color: #bdbdbd;
+    --c-text: #000000;
+}
+
+/*
+    pretty print
+*/
+.prettyprint li.L0,
+.prettyprint li.L1,
+.prettyprint li.L2,
+.prettyprint li.L3,
+.prettyprint li.L5,
+.prettyprint li.L6,
+.prettyprint li.L7,
+.prettyprint li.L8 {
+    list-style-type: decimal !important;
+}

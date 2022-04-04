@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has("tag")) return;
+
+        const tag = params.get("tag");
+        document.getElementById("h1").innerHTML = "タグ : " + tag + " がつけられたページ :";
+
+        document.getElementsByTagName("title")[0].innerHTML = "タグ : " + tag;
+
+        const fragment = document.createDocumentFragment();
+        Object
+            .keys(CONTENT_META_DATA)
+            .map(key => CONTENT_META_DATA[key])
+            .filter(page => page.tags.includes(tag))
+            .sort((a, b) => (a.date < b.date) ? 1 : -1)
+            .forEach(function (page) {
+                const a = document.createElement("a");
+                const title = document.createTextNode(page.title);
+                a.appendChild(title);
+                a.href = page.path;
+
+                const li = document.createElement("li");
+                const date = document.createTextNode(page.date + " ");
+                li.appendChild(date);
+                li.appendChild(a);
+                fragment.appendChild(li);
+            });
+
+            document
+                .getElementById("contents-list")
+                .appendChild(fragment);
+    });
+</script>
+
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="data.js"></script>
+        <title>Tag</title>
+    </head>
+
+    <body>
+        <h1 id = "h1"></h1>
+        <hr>
+        <br>
+
+        <ul id = "contents-list">
+        </ul>
+    </body>
+</html>
