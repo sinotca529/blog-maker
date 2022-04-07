@@ -8,7 +8,7 @@ import subprocess
 def copy_assets(pwd, proj_dir):
     dir_output = os.path.join(pwd, "output")
     os.makedirs(dir_output, exist_ok=True)
-    file_names = ["index.html", "tag.html", "style.css"]
+    file_names = ["index.html", "tag.html", "style.css", "script.js"]
     for file_name in file_names:
         src = os.path.join(proj_dir, file_name)
         dst = os.path.join(dir_output, file_name)
