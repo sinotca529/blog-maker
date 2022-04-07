@@ -18,16 +18,16 @@ def gen_code_block_html(lang: str, caption: str, code: str) -> str:
     if has_lang:
         if lang == "rs":
             lang = "rust"
-        pre_tag_begin = f'<pre class="prettyprint linenums language-{lang}">'
+        pre_tag_begin = f'<pre><code class="{lang}">'
     else:
-        pre_tag_begin = '<pre class="prettyprint">'
+        pre_tag_begin = '<pre><code class="nohljsln txt">'
 
     fig_caption = ""
     if has_caption:
-        fig_caption = f"<figcaption>{caption}</figcaption>"
+        fig_caption = f'<figcaption class="code-caption">{caption}</figcaption>'
 
     # code.replace()
-    return "\n<figure>" + pre_tag_begin + html_escape(code) + "</pre>" + fig_caption + "</figure>"
+    return "\n<figure>" + fig_caption + pre_tag_begin + html_escape(code) + "</code></pre>" + "</figure>"
 
 
 def code_block(elem, _doc):
@@ -38,7 +38,6 @@ def code_block(elem, _doc):
 
         html = gen_code_block_html(lang, caption, code)
         return pf.RawBlock(html)
-
 
 def main():
     pf.run_filter(code_block)
