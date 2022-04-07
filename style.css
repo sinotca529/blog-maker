@@ -1,3 +1,10 @@
+/*
+    em: 親要素のフォントサイズ
+    ex: 'x'の高さ
+    ch: '0'の幅
+    rem: ルート要素のフォントサイズ
+*/
+
 body {
     background-color: var(--c-first);
     font-size: large;
@@ -23,18 +30,6 @@ pre {
     padding-right: 16px !important;
     padding-left: 16px !important;
     overflow-x: auto;
-}
-
-code {
-    color: var(--c-fourth);
-}
-
-figure .prettyprint {
-    margin-bottom: 4px;
-}
-
-figure figcaption {
-    text-align: center;
 }
 
 quiz {
@@ -78,15 +73,49 @@ ol {
 }
 
 /*
-    pretty print
+    highlight.js
 */
-.prettyprint li.L0,
-.prettyprint li.L1,
-.prettyprint li.L2,
-.prettyprint li.L3,
-.prettyprint li.L5,
-.prettyprint li.L6,
-.prettyprint li.L7,
-.prettyprint li.L8 {
-    list-style-type: decimal !important;
+.hljs-ln {
+    margin-bottom: 0;
+    border: none;
+}
+
+.hljs-ln tr, .hljs-ln td {
+    border: none;
+}
+
+.hljs-ln-line.hljs-ln-numbers {
+    font-family: inherit;
+    user-select: none;
+    padding-right: 0.5ch;
+    width: 2ch;
+    min-width: 2ch;
+    position: absolute;
+    vertical-align: top;
+    text-align: right;
+    background: #dfdfdf;
+}
+
+.hljs-ln-code.hljs-ln-line {
+    padding-left: 3.5ch;
+    vertical-align: bottom;
+}
+
+.hljs {
+    padding: 0 !important;
+    border-width: 1px !important;
+    border-color: #000000 !important;
+    border-style: solid !important;
+}
+
+figcaption + pre {
+    margin-top: 0;
+}
+
+.code-caption {
+    text-align: left;
+    margin-left: 16px;
+    padding-right: 1ch;
+    padding-left: 1ch;
+    width: min-content;
 }
