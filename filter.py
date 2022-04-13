@@ -14,17 +14,17 @@ def gen_code_block_html(lang: str, caption: str, code: str) -> str:
     has_lang = len(lang) != 0
     has_caption = len(caption) != 0
 
-    pre_tag_begin = ""
-    if has_lang:
-        if lang == "rs":
-            lang = "rust"
-        pre_tag_begin = f'<pre><code class="{lang}">'
-    else:
-        pre_tag_begin = '<pre><code class="nohljsln txt">'
-
     fig_caption = ""
     if has_caption:
         fig_caption = f'<figcaption class="code-caption">{caption}</figcaption>'
+
+    pre_tag_begin = ""
+    if has_lang:
+        if lang == "mermaid":
+            return "\n<figure>" + fig_caption + '<div class="mermaid">' + html_escape(code) + "</div></figure>"
+        pre_tag_begin = f'<pre><code class="{lang}">'
+    else:
+        pre_tag_begin = '<pre><code class="nohljsln txt">'
 
     # code.replace()
     return "\n<figure>" + fig_caption + pre_tag_begin + html_escape(code) + "</code></pre>" + "</figure>"

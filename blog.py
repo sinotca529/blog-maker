@@ -4,54 +4,64 @@ import sys
 import shutil
 import glob
 import subprocess
+from pathlib import Path
+import update_data
 
-def copy_assets(pwd, proj_dir):
-    dir_output = os.path.join(pwd, "output")
-    os.makedirs(dir_output, exist_ok=True)
-    file_names = ["index.html", "tag.html", "style.css", "script.js"]
+def copy_assets(src_dir: Path, dst_dir: Path, file_names: list):
     for file_name in file_names:
-        src = os.path.join(proj_dir, file_name)
-        dst = os.path.join(dir_output, file_name)
+        src = src_dir / file_name
+        dst = dst_dir / file_name
         if not os.path.exists(dst):
             shutil.copyfile(src, dst)
 
-def make_html(pwd, proj_dir):
-    dir_out_content = os.path.join(pwd, "output", "content")
-    os.makedirs(dir_out_content, exist_ok=True)
-    markdowns = glob.glob("*.md")
-    for markdown in markdowns:
-        output_file = os.path.join(dir_out_content, os.path.basename(markdown).split(".")[0] + ".html")
-        template = os.path.join(proj_dir, "template.html")
-        filter = os.path.join(proj_dir, "filter.py")
-        args = [
-            "pandoc",
-            "-s",
-            "-f", "commonmark_x+emoji-fancy_lists",
-            "--no-highlight",
-            "--template", template,
-            "--filter", filter,
-            "--katex=https://cdn.jsdelivr.net/npm/katex@0.13.16/dist/",
-            markdown,
-            "-o", output_file,
-        ]
-        subprocess.run(args)
-
-def update_page_data(proj_dir):
+def call_pandoc(proj_dir, in_path, out_path):
+    template = proj_dir / "template.html"
+    filter = proj_dir / "filter.py"
     args = [
-        "python3",
-        os.path.join(proj_dir, "update-data.py")
+        "pandoc",
+        "-s",
+        "-f", "commonmark_x+emoji-fancy_lists",
+        "-M", "base=" + str(os.path.relpath("output", out_path.parent)),
+        "--no-highlight",
+        "--template", str(template),
+        "--filter", str(filter),
+        "--katex=https://cdn.jsdelivr.net/npm/katex@0.13.16/dist/",
+        in_path,
+        "-o", out_path,
     ]
     subprocess.run(args)
 
+def convert_md_to_html_all(proj_dir, root):
+    work_list = []
+    for (dirpath, _child_dir, child_file_list) in os.walk(root):
+        for child_file in child_file_list:
+            if child_file[-3:] == ".md":
+                dirpath = Path(dirpath)
+                in_file_name = Path(child_file)
+                out_file_name = Path(child_file[:-3] + ".html")
+                work_list.append((dirpath/in_file_name, dirpath/out_file_name))
+    for (md, html) in work_list:
+        call_pandoc(proj_dir, md, html)
+        os.remove(md)
+
 def main():
     # Directory where this script exists.
-    proj_dir = os.path.dirname(os.path.realpath(__file__))
-    pwd = os.getcwd()
+    proj_dir = Path(__file__).parent
 
-    copy_assets(pwd, proj_dir)
-    make_html(pwd, proj_dir)
-    update_page_data(proj_dir)
+    output_dir = Path("./output")
+    content_dir = Path("./output/content")
+    os.makedirs(content_dir, exist_ok=True)
+
+    copy_assets(
+        proj_dir,
+        output_dir,
+        ["index.html", "tag.html", "style.css", "script.js"]
+    )
+
+    shutil.copytree(Path("./src"), content_dir, dirs_exist_ok=True)
+    convert_md_to_html_all(proj_dir, content_dir)
+
+    update_data.run()
 
 if __name__ == "__main__":
     main()
-

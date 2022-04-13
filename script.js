@@ -1,7 +1,8 @@
 window.addEventListener("DOMContentLoaded", function() {
+    let re = /(.*tag.html\?tag=)(.*)/;
     document.querySelectorAll("tag a")
         .forEach(function(a) {
-            tag_name = a.innerHTML;
-            a.href = "tag.html?tag=" + encodeURIComponent(tag_name);
+            let match = re.exec(a.href);
+            a.href = match[1] + encodeURIComponent(match[2])
         });
 });

@@ -5,9 +5,11 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
-  <base href="../">
-  <link rel="stylesheet" type="text/css" href="./style.css">
-  <script src="./script.js"></script>
+  <link rel="stylesheet" type="text/css" href=$if(base)$"$base$/$else$"$endif$style.css">
+  <script type="text/javascript" src=$if(base)$"$base$/$else$"$endif$script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad: true});</script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
@@ -55,11 +57,11 @@ $for(header-includes)$
 $endfor$
 </head>
 <body>
-<a href="index.html">トップへ</a>
+<a href=$if(base)$"$base$/$else$"$endif$index.html">トップへ</a>
 <p>
   <date>$if(date)$$date$$endif$</date>
   $for(tag)$
-    <tag><a href="tag.html?tag=$tag$">$tag$</a></tag>
+    <tag><a href=$if(base)$"$base$/$else$"$endif$tag.html?tag=$tag$">$tag$</a></tag>
   $endfor$
 </p>
 

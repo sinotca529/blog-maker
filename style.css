@@ -43,13 +43,15 @@ quiz {
 }
 
 tag {
-    background-color: var(--c-second);
-    border-width: thick;
+    border-width: 2px;
+    border-radius: 1ch;
+    padding-right: 0.5ch;
+    padding-left: 0.5ch;
+    border-style: solid;
     border-color: #000000;
     white-space: nowrap;
 }
 tag > a {
-    color: var(--c-fourth);
     text-decoration: none;
 }
 
@@ -131,4 +133,15 @@ th, td {
 }
 thead {
     background-color: var(--c-second);
+}
+
+figcaption {
+    width: fit-content !important;
+}
+
+blockquote {
+    padding-left: 1ch;
+    border-style: solid;
+    border-width: 0 0 0 0.5ch;
+    border-color: var(--c-divider-color);
 }
