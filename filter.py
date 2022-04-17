@@ -22,6 +22,9 @@ def gen_code_block_html(lang: str, caption: str, code: str) -> str:
     if has_lang:
         if lang == "mermaid":
             return "\n<figure>" + fig_caption + '<div class="mermaid">' + html_escape(code) + "</div></figure>"
+        if lang == "algorithm":
+            return '\n<pre class="algorithm">' +  html_escape(code) + "</pre>"
+
         pre_tag_begin = f'<pre><code class="{lang}">'
     else:
         pre_tag_begin = '<pre><code class="nohljsln txt">'
