@@ -21,7 +21,7 @@ def call_pandoc(proj_dir, in_path, out_path):
         "pandoc",
         "-s",
         "-f", "commonmark_x+emoji-fancy_lists",
-        "-M", "base=" + str(os.path.relpath("output", out_path.parent)),
+        "-M", "base=" + str(os.path.relpath("docs", out_path.parent)),
         "--no-highlight",
         "--template", str(template),
         "--filter", str(filter),
@@ -48,8 +48,8 @@ def main():
     # Directory where this script exists.
     proj_dir = Path(__file__).parent
 
-    output_dir = Path("./output")
-    content_dir = Path("./output/content")
+    output_dir = Path("./docs")
+    content_dir = Path("./docs/content")
     os.makedirs(content_dir, exist_ok=True)
 
     copy_assets(

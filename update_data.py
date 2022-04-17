@@ -23,7 +23,7 @@ def collect_meta_data():
     re_date = re.compile(r'<meta name="date" content="(.*)" *[/]>')
 
     pages = []
-    for (dirpath, _child_dir, child_file_list) in os.walk(Path("./output/content")):
+    for (dirpath, _child_dir, child_file_list) in os.walk(Path("./docs/content")):
         for child_file in child_file_list:
             if child_file[-5:] == ".html":
                 path = Path(dirpath) / child_file
@@ -32,12 +32,12 @@ def collect_meta_data():
                     title = re_title.search(content).group(1)
                     date = re_date.search(content).group(1)
                     tags = [t.strip() for t in re_tag.search(content).group(1).split(',')]
-                    pages.append(Page(str(path.relative_to("./output")), title, tags, date))
+                    pages.append(Page(str(path.relative_to("./docs")), title, tags, date))
     return pages
 
 def run():
     pages = collect_meta_data()
     js = json.dumps(pages, cls=PageEncoder, ensure_ascii=False)
-    f = open(Path("./output/data.js"), "w+")
+    f = open(Path("./docs/data.js"), "w+")
     f.write("const CONTENT_META_DATA = " + js)
     f.close()
