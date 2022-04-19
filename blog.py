@@ -7,12 +7,17 @@ import subprocess
 from pathlib import Path
 import update_data
 
-def copy_assets(src_dir: Path, dst_dir: Path, file_names: list):
+def copy_assets(src_dir: Path, dst_dir: Path, file_names: list, dir_names: list):
     for file_name in file_names:
         src = src_dir / file_name
         dst = dst_dir / file_name
         if not os.path.exists(dst):
             shutil.copyfile(src, dst)
+    for dir_name in dir_names:
+        src = src_dir / dir_name
+        dst = dst_dir / dir_name
+        if not os.path.exists(dst):
+            shutil.copytree(src, dst)
 
 def call_pandoc(proj_dir, in_path, out_path):
     template = proj_dir / "template.html"
@@ -55,7 +60,8 @@ def main():
     copy_assets(
         proj_dir,
         output_dir,
-        ["index.html", "tag.html", "style.css", "script.js"]
+        ["index.html", "tag.html", "style.css", "script.js"],
+        ["font"]
     )
 
     shutil.copytree(Path("./src"), content_dir, dirs_exist_ok=True)

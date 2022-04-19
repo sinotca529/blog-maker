@@ -5,11 +5,18 @@
     rem: ルート要素のフォントサイズ
 */
 
+@font-face {
+    font-family: "HackGenNerd";
+    src: url(font/HackGenNerd-Regular.ttf);
+}
+
 body {
     background-color: var(--c-first);
     font-size: large;
     margin-left: 32px;
     margin-right: 32px;
+    max-width: fit-content;
+    width: 90%;
 }
 
 h1, h2 {
@@ -22,7 +29,7 @@ hr {
 
 pre, code {
     /* font-weight: bold; */
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'HackGenNerd', monospace;
 }
 
 pre {
