@@ -9,7 +9,13 @@ window.addEventListener("DOMContentLoaded", function() {
 
     // pseudo.js
     document.querySelectorAll(".algorithm")
-        .forEach(a => {
+        .forEach(e => {
             pseudocode.renderElement(e, {lineNumber: true, lineNumberPunc: ' '});
+        });
+
+    // viz.js (graphviz)
+    document.querySelectorAll(".graphviz")
+        .forEach(e => {
+            e.innerHTML = Viz(e.innerText);
         });
 });

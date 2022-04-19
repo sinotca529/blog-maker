@@ -24,6 +24,8 @@ def gen_code_block_html(lang: str, caption: str, code: str) -> str:
             return "\n<figure>" + fig_caption + '<div class="mermaid">' + html_escape(code) + "</div></figure>"
         if lang == "algorithm":
             return '\n<pre class="algorithm">' +  html_escape(code) + "</pre>"
+        if lang == "graphviz":
+            return "\n<figure>" + fig_caption + '<div class="graphviz">' + html_escape(code) + "</div></figure>"
 
         pre_tag_begin = f'<pre><code class="{lang}">'
     else:
@@ -31,7 +33,6 @@ def gen_code_block_html(lang: str, caption: str, code: str) -> str:
 
     # code.replace()
     return "\n<figure>" + fig_caption + pre_tag_begin + html_escape(code) + "</code></pre>" + "</figure>"
-
 
 def code_block(elem, _doc):
     if isinstance(elem, pf.CodeBlock):
