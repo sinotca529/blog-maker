@@ -30,7 +30,7 @@ def call_pandoc(proj_dir, in_path, out_path):
         "--no-highlight",
         "--template", str(template),
         "--filter", str(filter),
-        "--katex=https://cdn.jsdelivr.net/npm/katex@0.13.16/dist/",
+        "--katex=https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/",
         in_path,
         "-o", out_path,
     ]
