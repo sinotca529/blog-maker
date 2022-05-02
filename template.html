@@ -47,7 +47,7 @@ $if(plug.graphviz)$
   <script>
     window.addEventListener("DOMContentLoaded", function() {
       document.querySelectorAll(".graphviz")
-        .forEach(e => e.innerHTML = Viz(e.innerText));
+        .forEach(e => e.innerHTML = Viz(e.textContent));
     });
   </script>
 $endif$
